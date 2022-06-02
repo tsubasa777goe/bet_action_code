@@ -1,8 +1,8 @@
 javascript:(
 
-var cardCountCheck =(function(){
-  var gameCounter = document.getElementsByClassName('count--d4099')[0];
-  var gameCounterLast = gameCounter.getElementsByTagName('div')[0].innerHTML;
+let cardCountCheck =(function(){
+  let gameCounter = document.getElementsByClassName('count--d4099')[0];
+  let gameCounterLast = gameCounter.getElementsByTagName('div')[0].innerHTML;
   gameCounterLast = Number(gameCounterLast);
   if(gameCounterLast === 0){
       console.log("カウントをリセットします");
