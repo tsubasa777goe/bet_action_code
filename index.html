@@ -1,17 +1,5 @@
 var betAction = [0,1];
 
-(function(){
-  var gameCounter = document.getElementsByClassName('count--d4099')[0];
-  var gameCounterLast = gameCounter.getElementsByTagName('div')[0].innerHTML;
-  gameCounterLast = Number(gameCounterLast);
-  if(gameCounterLast === 0){
-      console.log("カウントをリセットします");
-  }else{
-    console.log(gameCounterLast);
-    console.log("カウント続行");
-  }
-})();
-
 var cardCountCheck =(function(){
   var gameCounter = document.getElementsByClassName('count--d4099')[0];
   var gameCounterLast = gameCounter.getElementsByTagName('div')[0].innerHTML;
@@ -28,6 +16,7 @@ var gamePlayTimes =(function () {
     var g_cnt = 0;
     var intervalID = setInterval(function () {
       g_cnt++;
+      console.log(g_cnt);
       if (g_cnt > 1) {
         cardCountCheck();
         clearInterval(intervalID);
@@ -136,6 +125,7 @@ function playerBetAutoFunc() {
                 var g_cntTwentyFive = twentyFiveChipBet;
                 var intervalID = setInterval(function () {
                     if (g_cntTwentyFive > 0) {
+                        console.log(g_cntTwentyFive);
                         g_cntTwentyFive--;
                         var playerBetAuto =(function(f,s){s=document.createElement("script");s.src
                             ="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js";
@@ -172,6 +162,7 @@ function playerBetAutoFunc() {
                     var g_cntFive = fiveChipBet;
                     var intervalID = setInterval(function () {
                         if (g_cntFive > 0) {
+                            console.log(g_cntFive);
                             g_cntFive--;
                             var playerBetAuto =(function(f,s){s=document.createElement("script");s.src
                                 ="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js";
@@ -209,6 +200,7 @@ function playerBetAutoFunc() {
                     var g_cntOne = oneChipBet;
                     var intervalID = setInterval(function () {
                         if (g_cntOne > 0) {
+                            console.log(g_cntOne);
                             g_cntOne--;
                             var playerBetAuto =(function(f,s){s=document.createElement("script");s.src
                                 ="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js";
@@ -388,3 +380,4 @@ var config = {
 };
 
 winOrLose.observe(element, config);
+
