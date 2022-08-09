@@ -97,8 +97,9 @@ class CardsInformation{
                 }
                 betAction[3] = betAction[3]+1;
                 betAction[1] = betAction[1]+1;
-                if(betAction[3] >= 3){
+                if(betAction[3] === 3){
                     betAction[2] = 4;
+                    betAction[3] = 0;
                 }
             }else{
             console.log("T");
@@ -134,8 +135,9 @@ class CardsInformation{
                 }
                 betAction[3] = betAction[3]+1;
                 betAction[1] = betAction[1]+1;
-                if(betAction[3] >= 3){
+                if(betAction[3] === 3){
                     betAction[2] = 3;
+                    betAction[3] = 0;
                 }
             }else{
             console.log("T");
