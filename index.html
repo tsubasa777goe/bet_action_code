@@ -67,7 +67,6 @@ class CardsInformation{
             bankerScore = bankerScore - 10;
         }
 
-
         if(betAction[0]===1 && betAction[2]===4){
             if(playerScore > bankerScore){
                     console.log("P連勝中のため、look継続");
@@ -97,7 +96,7 @@ class CardsInformation{
                 }
                 betAction[3] = betAction[3]+1;
                 betAction[1] = betAction[1]+1;
-                if(betAction[3] === 3){
+                if(betAction[3] = 3){
                     betAction[2] = 4;
                     betAction[3] = 0;
                 }
@@ -182,12 +181,16 @@ class CardsInformation{
         if(betAction[1] > 12 && betAction[4] > -10){
             betAction = [1, 1, 0, 0, 0];
         }
+        if(betAction[4] < -101){
+            betAction = [1, 1, 0, 0, 0];
+        }
         if(betAction[1] > 20){
             betAction = [1, 1, 0, 0, 0];
         }
         return betAction;
     }
 }
+
 
 class BacarratGameNumber {
     constructor(betAction){
@@ -197,13 +200,55 @@ class BacarratGameNumber {
             var gameCounter = this.betAction[5];
             gameCounter = Number($('.count--d4099').eq(0).text());
             if(gameCounter === 0){
-                this.betAction[6] = 0;
+                this.betAction[0] = 1;
+                this.betAction[1] = 1;
+                this.betAction[2] = 0;
+                this.betAction[3] = 0;
+                this.betAction[4] = 0;
                 this.betAction[5] = 0;
+                this.betAction[6] = 0;
                 console.log("カウンティングをリセットします");
+
+                return betAction;
             }else{
                 this.betAction[5] = gameCounter;
-                console.log("シュー継続、カウンティング続行");
-                return betAction;
+                    if(gameCounter === 43){
+                        var twentyTimesPlayerGameCounter = Number($('.count--d4099').eq(1).text());
+                        var twentyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
+                        console.log("２０ゲーム目の勝敗を保存しました")
+
+                    }
+                    if(gameCounter > 20){
+                        var nowTwentyTimesPlayerGameCounter = Number($('.count--d4099').eq(1).text());
+                        var nowTwentyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
+
+                        var playerWinTimes = nowTwentyTimesPlayerGameCounter - twentyTimesPlayerGameCounter;
+                        var bankerWinTimes = nowTwentyTimesBankerGameCounter - twentyTimesBankerGameCounter;
+                        var resetCounter = this.betAction[6];
+                        if(resetCounter > 70){
+                            this.betAction[0] = 0;
+                            this.betAction[1] = 0;
+                            this.betAction[2] = 0;
+                            this.betAction[3] = 0;
+                            this.betAction[4] = 0;
+                            this.betAction[5] = 0;
+                            this.betAction[6] = 100;
+                            console.log("以降lookします");
+                        }
+                        else if(playerWinTimes - bankerWinTimes > 10 && this.betAction[6] < -10){
+                            this.betAction[0] = 0;
+                            this.betAction[1] = 0;
+                            this.betAction[2] = 0;
+                            this.betAction[3] = 0;
+                            this.betAction[4] = 0;
+                            this.betAction[5] = 0;
+                            this.betAction[6] = 100;
+
+                            console.log("以降lookします");
+                        }
+                    console.log("シュー継続、カウンティング続行");
+                    return betAction;
+                    }
             }
         }
 }
@@ -262,7 +307,7 @@ class BacarratGameBetChips {
                         }, 250);
                     })(twentyFiveDollarChips);
                 resolve();
-            }, 100);
+            }, 1000);
         }).then(() => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -280,7 +325,7 @@ class BacarratGameBetChips {
                         }, 250);
                     })(fiveDollarChips);
                     resolve();
-                }, 1100)
+                }, 100)
             })
         }).then(() => {
         return new Promise((resolve, reject) => {
@@ -422,5 +467,4 @@ class BacarratGameBetChips {
         subtree: true
     };
     winOrLose.observe(distributedCards, config);
-
 });
