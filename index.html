@@ -67,7 +67,7 @@ class CardsInformation{
             bankerScore = bankerScore - 10;
         }
 
-        if(betAction[0]===1 && betAction[2]===4){
+    if(betAction[0]===1 && betAction[2]===4){
             if(playerScore > bankerScore){
                     console.log("P連勝中のため、look継続");
             }else if(playerScore < bankerScore){
@@ -97,6 +97,9 @@ class CardsInformation{
                 betAction[3] = betAction[3]+1;
                 if(betAction[3] < 4){
                     betAction[1] = betAction[1]+1;
+                    betAction[2] = 4;
+                }
+                if(betAction[3] >= 3){
                     betAction[2] = 4;
                 }
             }else{
@@ -134,6 +137,8 @@ class CardsInformation{
                 betAction[3] = betAction[3]+1;
                 if(betAction[3] === 3){
                     betAction[1] = betAction[1]+1;
+                }
+                if(betAction[3] >= 3){
                     betAction[2] = 3;
                 }
             }else{
