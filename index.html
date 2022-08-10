@@ -83,7 +83,7 @@ class CardsInformation{
                 if(betAction[3] < 3){
                     betAction[4] = betAction[4] + betAction[1];
                 }
-                if(betAction[1] > 9 || betAction[4] < -20){
+                if(betAction[1] > 9 || betAction[4] > -20){
                     betAction[1] = 4;
                 }
                 betAction[3] = 0;
@@ -124,7 +124,7 @@ class CardsInformation{
                 if(betAction[3] < 3){
                     betAction[4] = betAction[4] + betAction[1];
                 }
-                if(betAction[1] > 9 || betAction[4] < -20){
+                if(betAction[1] > 9 || betAction[4] > -20){
                     betAction[1] = 4;
                 }
                 betAction[3] = 0;
@@ -234,6 +234,8 @@ class BacarratGameNumber {
 
                         var playerWinTimes = nowPlayerGameCounter - twentyTimesPlayerGameCounter;
                         var bankerWinTimes = nowBankerGameCounter - twentyTimesBankerGameCounter;
+                        console.log(playerWinTimes);
+                        console.log(bankerWinTimes);
                         var resetCounter = this.betAction[7];
                         var parameterPorBwin = this.betAction[6]
                         if(resetCounter === 1){
@@ -247,7 +249,7 @@ class BacarratGameNumber {
                             this.betAction[7] = 1;
                             console.log("以降lookします");
                         }
-                        else if(playerWinTimes - bankerWinTimes > 5 && parameter < -9){
+                        else if(playerWinTimes - bankerWinTimes > 5 && parameter < -7){
                             this.betAction[0] = 0;
                             this.betAction[1] = 0;
                             this.betAction[2] = 0;
