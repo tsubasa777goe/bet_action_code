@@ -3,7 +3,7 @@
 s.onload=function(){f(jQuery.noConflict(true))};document.body.appendChild(s)})
 (function($){
 
-var betAction = [1, 1, 0, 0, 0, 0, 0];
+var betAction = [1, 1, 0, 0, 0, 0, 0, 0];
 var betChipsNumber = [0, 0, 0];
 
 class CardsInformation{
@@ -83,6 +83,9 @@ class CardsInformation{
                 if(betAction[3] < 3){
                     betAction[4] = betAction[4] + betAction[1];
                 }
+                if(betAction[1] > 9 || betAction[4] < -20){
+                    betAction[1] = 4;
+                }
                 betAction[3] = 0;
                 if(betAction[4] >= 0){
                     betAction[1] = 1;
@@ -96,7 +99,7 @@ class CardsInformation{
                 }
                 betAction[3] = betAction[3]+1;
                 betAction[1] = betAction[1]+1;
-                if(betAction[3] === 3){
+                if(betAction[3] >= 3){
                     betAction[2] = 4;
                     betAction[3] = 0;
                 }
@@ -121,6 +124,9 @@ class CardsInformation{
                 if(betAction[3] < 3){
                     betAction[4] = betAction[4] + betAction[1];
                 }
+                if(betAction[1] > 9 || betAction[4] < -20){
+                    betAction[1] = 4;
+                }
                 betAction[3] = 0;
                 if(betAction[4] >= 0){
                     betAction[1] = 1;
@@ -134,7 +140,7 @@ class CardsInformation{
                 }
                 betAction[3] = betAction[3]+1;
                 betAction[1] = betAction[1]+1;
-                if(betAction[3] === 3){
+                if(betAction[3] >= 3){
                     betAction[2] = 3;
                     betAction[3] = 0;
                 }
@@ -179,13 +185,13 @@ class CardsInformation{
     }
     resetFunc(){
         if(betAction[1] > 12 && betAction[4] > -10){
-            betAction = [1, 1, 0, 0, 0];
+            betAction = [1, 1, 0, 0, 0, 0, 0];
         }
         if(betAction[4] < -101){
-            betAction = [1, 1, 0, 0, 0];
+            betAction = [1, 1, 0, 0, 0, 0, 0];
         }
         if(betAction[1] > 20){
-            betAction = [1, 1, 0, 0, 0];
+            betAction = [1, 1, 0, 0, 0, 0, 0];
         }
         return betAction;
     }
@@ -201,10 +207,6 @@ class BacarratGameNumber {
             gameCounter = Number($('.count--d4099').eq(0).text());
             if(gameCounter === 0){
                 this.betAction[0] = 1;
-                this.betAction[1] = 1;
-                this.betAction[2] = 0;
-                this.betAction[3] = 0;
-                this.betAction[4] = 0;
                 this.betAction[5] = 0;
                 this.betAction[6] = 0;
                 console.log("カウンティングをリセットします");
@@ -217,33 +219,43 @@ class BacarratGameNumber {
                         var twentyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
                         console.log("２０ゲーム目の勝敗を保存しました")
 
+                    }if(gameCounter === 30){
+                        var thirtyTimesPlayerGameCounter = Number($('.count--d4099').eq(1).text());
+                        var thirtyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
+                        console.log("３０ゲーム目の勝敗を保存しました")
+                        var pbScore = thirtyTimesPlayerGameCounter - thirtyTimesBankerGameCounter;
+                        if(pbScore > 4){
+                            this.betAction[7] = 1;
+                        }
                     }
                     if(gameCounter > 20){
-                        var nowTwentyTimesPlayerGameCounter = Number($('.count--d4099').eq(1).text());
-                        var nowTwentyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
+                        var nowPlayerGameCounter = Number($('.count--d4099').eq(1).text());
+                        var nowBankerGameCounter = Number($('.count--d4099').eq(2).text());
 
-                        var playerWinTimes = nowTwentyTimesPlayerGameCounter - twentyTimesPlayerGameCounter;
-                        var bankerWinTimes = nowTwentyTimesBankerGameCounter - twentyTimesBankerGameCounter;
-                        var resetCounter = this.betAction[6];
-                        if(resetCounter > 70){
+                        var playerWinTimes = nowPlayerGameCounter - twentyTimesPlayerGameCounter;
+                        var bankerWinTimes = nowBankerGameCounter - twentyTimesBankerGameCounter;
+                        var resetCounter = this.betAction[7];
+                        var parameterPorBwin = this.betAction[6]
+                        if(resetCounter === 1){
                             this.betAction[0] = 0;
                             this.betAction[1] = 0;
                             this.betAction[2] = 0;
                             this.betAction[3] = 0;
                             this.betAction[4] = 0;
                             this.betAction[5] = 0;
-                            this.betAction[6] = 100;
+                            this.betAction[6] = 0;
+                            this.betAction[7] = 1;
                             console.log("以降lookします");
                         }
-                        else if(playerWinTimes - bankerWinTimes > 5 && this.betAction[6] < -10){
+                        else if(playerWinTimes - bankerWinTimes > 5 && parameter < -9){
                             this.betAction[0] = 0;
                             this.betAction[1] = 0;
                             this.betAction[2] = 0;
                             this.betAction[3] = 0;
                             this.betAction[4] = 0;
                             this.betAction[5] = 0;
-                            this.betAction[6] = 100;
-
+                            this.betAction[6] = 0;
+                            this.betAction[7] = 1;
                             console.log("以降lookします");
                         }
                     console.log("シュー継続、カウンティング続行");
@@ -438,7 +450,7 @@ class BacarratGameBetChips {
                     setTimeout(() => {
                         console.log("べットします");
                         const baccaratGameStart = new BacarratGameBetChips(betAction,betChipsNumber);
-                        if(betAction[2] > 2){
+                        if(betAction[2] > 2 || betAction[7] === 1){
                             baccaratGameStart.look();
                             console.log("look");
                         }
