@@ -444,8 +444,20 @@ class BacarratGameBetChips {
                         console.log("べットします");
                         const baccaratGameStart = new BacarratGameBetChips(betAction,betChipsNumber);
                         if(betAction[2] > 2 || betAction[7] === 1){
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 51 }))
+                                resolve();
+                                }, 1000);
+                            })
                             baccaratGameStart.look();
                             console.log("look");
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 50 }))
+                                resolve();
+                                }, 1000);
+                            })
                         }
                         else if(betAction[0]===0){
                             baccaratGameStart.betForPlayer();
