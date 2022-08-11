@@ -458,7 +458,8 @@ class BacarratGameBetChips {
                             baccaratGameStart.betForBanker();
                             console.log("betForBanker");
                         }else{
-                            baccaratGameStart.look();
+                             document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 49 }))
+                             baccaratGameStart.look();
                             console.log("look");
                         }
                         console.log(betAction);
