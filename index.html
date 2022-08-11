@@ -228,7 +228,8 @@ class BacarratGameNumber {
                         var thirtyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
                         console.log("３０ゲーム目の勝敗を保存しました")
                         var pbScore = thirtyTimesPlayerGameCounter - thirtyTimesBankerGameCounter;
-                        if(pbScore > 4){
+                        var parameterPorBwin = this.betAction[6]
+                        if(pbScore > 4 && parameter > -10){
                             this.betAction[7] = 1;
                         }
                     }
