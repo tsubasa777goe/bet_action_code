@@ -416,6 +416,7 @@ class BacarratGameBetChips {
     }
 };
 
+
     var distributedCards = $('.gameResult--423e1')[0];
     var counter = true;
     var winOrLose = new MutationObserver(function(record, observer){
@@ -434,6 +435,7 @@ class BacarratGameBetChips {
         }else{
             new Promise((resolve, reject) => {
                 setTimeout(() => {
+                    document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 50 }))
                     const outPutGameNumber = new BacarratGameNumber(betAction);
                     outPutGameNumber.gamePlayTimes();
                     resolve();
@@ -444,20 +446,10 @@ class BacarratGameBetChips {
                         console.log("べットします");
                         const baccaratGameStart = new BacarratGameBetChips(betAction,betChipsNumber);
                         if(betAction[2] > 2 || betAction[7] === 1){
-                            new Promise((resolve, reject) => {
-                                setTimeout(() => {
-                                document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 51 }))
-                                resolve();
-                                }, 1000);
-                            })
+                            document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 49 }))
                             baccaratGameStart.look();
                             console.log("look");
-                            new Promise((resolve, reject) => {
-                                setTimeout(() => {
-                                document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 50 }))
-                                resolve();
-                                }, 1000);
-                            })
+                            
                         }
                         else if(betAction[0]===0){
                             baccaratGameStart.betForPlayer();
