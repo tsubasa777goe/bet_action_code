@@ -83,7 +83,10 @@ class CardsInformation{
                 if(betAction[3] < 3){
                     betAction[4] = betAction[4] + betAction[1];
                 }
-                if(betAction[1] > 9 && betAction[4] > -20){
+                if(betAction[1] > 14 && betAction[4] > -50){
+                    betAction[1] = 10;
+                }
+                else if(betAction[1] > 9 && betAction[4] > -20){
                     betAction[1] = 4;
                 }
                 betAction[3] = 0;
@@ -124,7 +127,10 @@ class CardsInformation{
                 if(betAction[3] < 3){
                     betAction[4] = betAction[4] + betAction[1];
                 }
-                if(betAction[1] > 9 && betAction[4] > -20){
+                if(betAction[1] > 14 && betAction[4] > -50){
+                    betAction[1] = 10;
+                }
+                else if(betAction[1] > 9 && betAction[4] > -20){
                     betAction[1] = 4;
                 }
                 betAction[3] = 0;
@@ -211,7 +217,7 @@ class BacarratGameNumber {
             if(gameCounter === 0){
                 this.betAction[0] = 1;
 
-
+                
                 this.betAction[5] = 0;
                 this.betAction[6] = 0;
                 this.betAction[7] = 0;
@@ -249,7 +255,7 @@ class BacarratGameNumber {
                             this.betAction[7] = 1;
                             console.log("以降プレイヤーへべットします");
                         }
-                        else if(playerWinTimes - bankerWinTimes > 5 && parameterPorBwin < -5){
+                        else if(nowPlayerGameCounter - nowBankerGameCounter > 0 && parameterPorBwin < -5 && playerWinTimes > bankerWinTimes+5){
                             this.betAction[7] = 1;
                             console.log("以降プレイヤーへべットします");
                         }
