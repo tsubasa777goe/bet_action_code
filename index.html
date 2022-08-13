@@ -78,10 +78,10 @@ class CardsInformation{
             }
         }
         else if(betAction[0]===1 && betAction[2]===3){
-            if(playerScore > bankerScore){
-                    console.log("P連勝中のため、look継続");
-            }else if(playerScore < bankerScore){
-                    console.log("B勝利のため、べット開始");
+            if(playerScore < bankerScore){
+                    console.log("B連勝中のため、look継続");
+            }else if(playerScore > bankerScore){
+                    console.log("P勝利、連勝ストップのためべット開始");
                     betAction[2]=0;
             }else{
                     console.log("タイのため、look継続");
@@ -132,10 +132,10 @@ class CardsInformation{
             }
         }
         else if(betAction[0]===0 && betAction[2]===4){
-            if(playerScore < bankerScore){
-                    console.log("B連勝中のため、look継続");
-            }else if(playerScore > bankerScore){
-                    console.log("P勝利のため、べット開始");
+            if(playerScore > bankerScore){
+                    console.log("P連勝中のため、look継続");
+            }else if(playerScore < bankerScore){
+                    console.log("B勝利、連勝ストップのためべット開始");
                     betAction[2]=0;
             }else{
                     console.log("タイのため、look継続");
