@@ -77,6 +77,16 @@ class CardsInformation{
                     console.log("タイのため、look継続");
             }
         }
+        else if(betAction[0]===1 && betAction[2]===3){
+            if(playerScore > bankerScore){
+                    console.log("P連勝中のため、look継続");
+            }else if(playerScore < bankerScore){
+                    console.log("B勝利のため、べット開始");
+                    betAction[2]=0;
+            }else{
+                    console.log("タイのため、look継続");
+            }
+        }
         else if(betAction[0]===1){
             if(bankerScore > playerScore){
                 console.log("Win");
@@ -112,6 +122,16 @@ class CardsInformation{
         }
 
         if(betAction[0]===0 && betAction[2]===3){
+            if(playerScore < bankerScore){
+                    console.log("B連勝中のため、look継続");
+            }else if(playerScore > bankerScore){
+                    console.log("P勝利のため、べット開始");
+                    betAction[2]=0;
+            }else{
+                    console.log("タイのため、look継続");
+            }
+        }
+        else if(betAction[0]===0 && betAction[2]===4){
             if(playerScore < bankerScore){
                     console.log("B連勝中のため、look継続");
             }else if(playerScore > bankerScore){
@@ -193,13 +213,13 @@ class CardsInformation{
         return betAction;
     }
     resetFunc(){
-        if(betAction[1] > 12 && betAction[4] > -10){
+        if(betAction[1] > 15 && betAction[4] > -49){
+            betAction = [1, 1, 0, 0, 0, 0, 0];
+        }
+        else if(betAction[1] > 12 && betAction[4] > -10){
             betAction = [1, 1, 0, 0, 0, 0, 0];
         }
         if(betAction[4] < -101){
-            betAction = [1, 1, 0, 0, 0, 0, 0];
-        }
-        if(betAction[1] > 20){
             betAction = [1, 1, 0, 0, 0, 0, 0];
         }
         return betAction;
@@ -217,7 +237,6 @@ class BacarratGameNumber {
             if(gameCounter === 0){
                 this.betAction[0] = 1;
 
-                
                 this.betAction[5] = 0;
                 this.betAction[6] = 0;
                 this.betAction[7] = 0;
@@ -239,6 +258,7 @@ class BacarratGameNumber {
                         var parameterPorBwin = this.betAction[6]
                         if(pbScore > 4){
                             this.betAction[7] = 1;
+                            this.betAction[3] = 0;
                         }
                     }
                     if(gameCounter > 20){
@@ -257,6 +277,7 @@ class BacarratGameNumber {
                         }
                         else if(nowPlayerGameCounter - nowBankerGameCounter > 0 && parameterPorBwin < -5 && playerWinTimes > bankerWinTimes+5){
                             this.betAction[7] = 1;
+                            this.betAction[3] = 0;
                             console.log("以降プレイヤーへべットします");
                         }
                     console.log("シュー継続、カウンティング続行");
