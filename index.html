@@ -488,12 +488,12 @@ class BacarratGameNumber {
     var winOrLose = new MutationObserver(function(record, observer){
         if(counter){
             console.log("決着");
-                const outPutCardsInformation = new CardsInformation();
+                const outPutCardsInformation = new CardsInformation(betAction);
                     outPutCardsInformation.playerCardsRecord();
                     outPutCardsInformation.bankerCardsRecord();
                     outPutCardsInformation.outputCardsRecord();
                     outPutCardsInformation.winOrLoseJudge();
-                const baccaratBetting = new CardsCounting();
+                const baccaratBetting = new CardsCounting(betAction);
                     baccaratBetting.betChange();
                     baccaratBetting.betReset();
                     baccaratBetting.cardsScoreCount();
