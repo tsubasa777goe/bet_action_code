@@ -69,7 +69,7 @@ class CardsInformation{
         console.log(cardsResult);
         return cardsResult;
     }
-    winOrLoseJudge(){
+    winOrLoseJudge(cardsResult){
         console.log(cardsResult);
         var playerScore = cardsResult[0][0] + cardsResult[0][1] + cardsResult[0][2];
         var bankerScore = cardsResult[1][0] + cardsResult[1][1] + cardsResult[1][2];
@@ -498,7 +498,7 @@ class BacarratGameNumber {
                     outPutCardsInformation.bankerCardsRecord();
                     outPutCardsInformation.outputCardsRecord();
                     outPutCardsInformation.distributedPlayingCards();
-                    outPutCardsInformation.winOrLoseJudge();
+                    outPutCardsInformation.winOrLoseJudge(cardsResult);
                 const baccaratBetting = new CardsCounting(betAction,cardsResult);
                     baccaratBetting.betChange();
                     baccaratBetting.betReset();
