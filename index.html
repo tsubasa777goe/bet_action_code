@@ -55,10 +55,12 @@ class CardsInformation{
     }
     outputCardsRecord(){
         this.cardsResult = this.cardsResult.push(this.pHandsNum,this.bHandsNum);
-        console.log(this.cardsResult[0][0],this.cardsResult[0][1],this.cardsResult[0][2]);
-        console.log(this.cardsResult[1][0],this.cardsResult[1][1],this.cardsResult[1][2]);
-        this.cardsResult[0][2] = parseInt(this.cardsResult[0][2]) || 0;
-        this.cardsResult[1][2] = parseInt(this.cardsResult[1][2]) || 0;
+        var cardsResultScore = this.cardsResult
+        console.log(cardsResultScore[0][0],cardsResultScore[0][1],cardsResultScore[0][2]);
+        console.log(cardsResultScore[1][0],cardsResultScore[1][1],cardsResultScore[1][2]);
+        cardsResultScore[0][2] = parseInt(cardsResultScore[0][2]) || 0;
+        cardsResultScore[1][2] = parseInt(cardsResultScore[1][2]) || 0;
+        this.cardsResult = cardsResultScore;
         return this.cardsResult;
     }
     winOrLoseJudge(){
