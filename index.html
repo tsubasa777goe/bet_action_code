@@ -71,8 +71,9 @@ class CardsInformation{
 
     winOrLoseJudge(){
         console.log(this.cardsResult);
-        var playerScore = cardsResult[0][0] + cardsResult[0][1] + cardsResult[0][2];
-        var bankerScore = cardsResult[1][0] + cardsResult[1][1] + cardsResult[1][2];
+        var distributedData = this.cardsResult;
+        var playerScore = distributedData[0][0] + distributedData[0][1] + distributedData[0][2];
+        var bankerScore = distributedData[1][0] + distributedData[1][1] + distributedData[1][2];
         while(playerScore >= 10){
             playerScore = playerScore - 10;
         }
@@ -84,6 +85,7 @@ class CardsInformation{
         return this.gameScore;
     }
 }
+
 
 class CardsCounting{
     constructor(betAction,cardsResult){
