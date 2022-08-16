@@ -116,12 +116,16 @@ class CardsCounting{
     }
 
 
-    betChange(betAction){        
-        if(this.betAction[7] === 1){
-            this.betAction[0] = 0
+    betChange(betAction){
+        var betActionResult = this.betAction;
+        console.log(betActionResult);        
+        if(betActionResult[7] === 1){
+            betActionResult[0] = 0
         }else{
-            this.betAction[0] = 1
+            betActionResult[0] = 1
         }
+        this.betAction = betActionResult;
+        console.log(this.betAction); 
         return this.betAction;
     }
 
