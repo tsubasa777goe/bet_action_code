@@ -64,7 +64,7 @@ class CardsInformation{
         console.log(this.cardsResult);
         return this.cardsResult;
     }
-    distributed(){
+    distributedPlayingCards(){
         var cardsResult = [this.pHandsNum,this.bHandsNum];
         console.log(cardsResult);
         return cardsResult;
@@ -497,7 +497,7 @@ class BacarratGameNumber {
                     outPutCardsInformation.playerCardsRecord();
                     outPutCardsInformation.bankerCardsRecord();
                     outPutCardsInformation.outputCardsRecord();
-                    outPutCardsInformation.distributed();
+                    outPutCardsInformation.distributedPlayingCards();
                     outPutCardsInformation.winOrLoseJudge();
                 const baccaratBetting = new CardsCounting(betAction,cardsResult);
                     baccaratBetting.betChange();
