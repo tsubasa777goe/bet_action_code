@@ -5,13 +5,15 @@ s.onload=function(){f(jQuery.noConflict(true))};document.body.appendChild(s)})
 
 var betAction = [1, 1, 0, 0, 0, 0, 0, 0];
 var betChipsNumber = [0, 0, 0];
+var cardsResult = [];
+var gameScore = [];
 
 class CardsInformation{
     constructor(pHandsNum,bHandsNum){
         this.pHandsNum = [0,0,0];
         this.bHandsNum = [0,0,0];
-        this.cardsResult = [];
-        this.gameScore = [];
+        this.cardsResult = cardsResult;
+        this.gameScore = gameScore;
     }
     playerCardsRecord(){
         var p1stCardNum = $('.cards--da884:eq(0) .card--dbf7e:eq(0) use:eq(2)')[0].href.baseVal.split('-')[1];
