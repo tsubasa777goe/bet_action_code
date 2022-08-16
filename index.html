@@ -10,6 +10,8 @@ class CardsInformation{
     constructor(pHandsNum,bHandsNum){
         this.pHandsNum = [0,0,0];
         this.bHandsNum = [0,0,0];
+        this.cardsResult = [];
+        this.gameScore = [];
     }
     playerCardsRecord(){
         var p1stCardNum = $('.cards--da884:eq(0) .card--dbf7e:eq(0) use:eq(2)')[0].href.baseVal.split('-')[1];
@@ -50,11 +52,12 @@ class CardsInformation{
         return this.bHandsNum;
     }
     outputCardsRecord(){
-        var cardsResult = [this.pHandsNum,this.bHandsNum];
+        this.cardsResult = this.cardsResult.push(this.pHandsNum,this.bHandsNum);
         console.log(cardsResult[0][0],cardsResult[0][1],cardsResult[0][2]);
         console.log(cardsResult[1][0],cardsResult[1][1],cardsResult[1][2]);
         cardsResult[0][2] = parseInt(cardsResult[0][2]) || 0;
         cardsResult[1][2] = parseInt(cardsResult[1][2]) || 0;
+        return this.cardsResult;
     }
     winOrLoseJudge(){
         var cardsResult = [this.pHandsNum,this.bHandsNum];
@@ -66,15 +69,19 @@ class CardsInformation{
         while(bankerScore >= 10){
             bankerScore = bankerScore - 10;
         }
-        return playerScore　と　bankerScore;
+        this.gameScore = this.gameScore.push(playerScore, bankerScore)
+        return this.gameScore;
     }
 }
 
 class CardsCounting{
-    constructor(betAction){
+    constructor(betAction,cardsResult){
         this.betAction = betAction;
+        this.cardsResult = cardsResult;
     }
-    cardsScoreCount(betAction){
+    cardsScoreCount(betAction,cardsResult){
+
+
 
 
 
@@ -99,25 +106,25 @@ class CardsCounting{
         cardsSum += numberResult;
         });
         console.log(cardsSum);
-        betAction[6] = betAction[6] + cardsSum;
-        return betAction;
+        this.betAction[6] = this.betAction[6] + cardsSum;
+        return this.betAction;
     }
 
 
-    betChange(){        
-        if(betAction[7] === 1){
-            betAction[0] = 0
+    betChange(betAction){        
+        if(this.betAction[7] === 1){
+            this.betAction[0] = 0
         }else{
-            betAction[0] = 1
+            this.betAction[0] = 1
         }
-        return betAction;
+        return this.betAction;
     }
 
     betReset(){
-        if(betAction[4] < -199){
-            betAction = [1, 1, 0, 0, 0, 0, 0];
+        if(this.betAction[4] < -199){
+            this.betAction = [1, 1, 0, 0, 0, 0, 0];
         }
-        return betAction;
+        return this.betAction;
     }
 }
 
@@ -412,6 +419,7 @@ class BacarratGameNumber {
 
             
             
+            
         this.betAction[5] = 0;
         this.betAction[6] = 0;
         this.betAction[7] = 0;
@@ -427,6 +435,7 @@ class BacarratGameNumber {
             console.log("２０ゲーム目の勝敗を保存しました")
         }
 
+            
         if(this.gameCounter === 30){
             var thirtyTimesPlayerGameCounter = Number($('.count--d4099').eq(1).text());
             var thirtyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
@@ -460,6 +469,8 @@ class BacarratGameNumber {
 }
 
 
+            
+            
 
     var distributedCards = $('.gameResult--423e1')[0];
     var counter = true;
