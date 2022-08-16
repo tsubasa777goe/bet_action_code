@@ -61,7 +61,6 @@ class CardsInformation{
         cardsResultScore[0][2] = parseInt(cardsResultScore[0][2]) || 0;
         cardsResultScore[1][2] = parseInt(cardsResultScore[1][2]) || 0;
         this.cardsResult = cardsResultScore;
-        console.log(this.cardsResult);
         return this.cardsResult;
     }
     distributedPlayingCards(){
@@ -69,8 +68,14 @@ class CardsInformation{
         console.log(cardsResult);
         return cardsResult;
     }
-    winOrLoseJudge(cardsResult){
-        console.log(cardsResult);
+}
+class CardsData{
+    constructor(cardsResult){
+        this.cardsResult = cardsResult;
+        console.log(this.cardsResult);
+    }
+    winOrLoseJudge(){
+        console.log(this.cardsResult);
         var playerScore = cardsResult[0][0] + cardsResult[0][1] + cardsResult[0][2];
         var bankerScore = cardsResult[1][0] + cardsResult[1][1] + cardsResult[1][2];
         while(playerScore >= 10){
@@ -80,6 +85,7 @@ class CardsInformation{
             bankerScore = bankerScore - 10;
         }
         this.gameScore = this.gameScore.push(playerScore, bankerScore)
+        console.log(gameScore);
         return this.gameScore;
     }
 }
@@ -498,7 +504,8 @@ class BacarratGameNumber {
                     outPutCardsInformation.bankerCardsRecord();
                     outPutCardsInformation.outputCardsRecord();
                     outPutCardsInformation.distributedPlayingCards();
-                    outPutCardsInformation.winOrLoseJudge(cardsResult);
+                const outPutCardsData = new CardsData(cardsResult);
+                    outPutCardsData.winOrLoseJudge();                
                 const baccaratBetting = new CardsCounting(betAction,cardsResult);
                     baccaratBetting.betChange();
                     baccaratBetting.betReset();
