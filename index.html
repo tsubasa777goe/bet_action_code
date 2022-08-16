@@ -49,14 +49,14 @@ class CardsInformation{
         });
         return this.bHandsNum;
     }
-    outputForCardsRecord(){
+    outputCardsRecord(){
         var cardsResult = [this.pHandsNum,this.bHandsNum];
         console.log(cardsResult[0][0],cardsResult[0][1],cardsResult[0][2]);
         console.log(cardsResult[1][0],cardsResult[1][1],cardsResult[1][2]);
         cardsResult[0][2] = parseInt(cardsResult[0][2]) || 0;
         cardsResult[1][2] = parseInt(cardsResult[1][2]) || 0;
     }
-    winOrLoseCount(){
+    winOrLoseJudge(){
         var cardsResult = [this.pHandsNum,this.bHandsNum];
         var playerScore = cardsResult[0][0] + cardsResult[0][1] + cardsResult[0][2];
         var bankerScore = cardsResult[1][0] + cardsResult[1][1] + cardsResult[1][2];
@@ -66,233 +66,67 @@ class CardsInformation{
         while(bankerScore >= 10){
             bankerScore = bankerScore - 10;
         }
+        return playerScore　と　bankerScore;
+    }
+}
 
-        if(betAction[0]===1 && betAction[2]===4){
-            if(playerScore > bankerScore){
-                    console.log("P連勝中のため、look継続");
-            }else if(playerScore < bankerScore){
-                    console.log("B勝利のため、べット開始");
-                    betAction[2]=0;
-            }else{
-                    console.log("タイのため、look継続");
-            }
-        }
-        else if(betAction[0]===1 && betAction[2]===3){
-            if(playerScore < bankerScore){
-                    console.log("B連勝中のため、look継続");
-            }else if(playerScore > bankerScore){
-                    console.log("P勝利、連勝ストップのためべット開始");
-                    betAction[2]=0;
-            }else{
-                    console.log("タイのため、look継続");
-            }
-        }
-        else if(betAction[0]===1){
-            if(bankerScore > playerScore){
-                console.log("Win");
-                if(betAction[3] < 3){
-                    betAction[4] = betAction[4] + betAction[1];
-                }
-                if(betAction[1] > 14 && betAction[4] > -50){
-                    betAction[1] = 10;
-                }
-                else if(betAction[1] > 9 && betAction[4] > -20){
-                    betAction[1] = 4;
-                }
-                betAction[3] = 0;
-                if(betAction[4] >= 0){
-                    betAction[1] = 1;
-                    betAction[4] = 0;
-                }
-            }
-            else if(playerScore > bankerScore){
-                    console.log("Lose");
-                if(betAction[3] < 3){
-                    betAction[4] = betAction[4]-betAction[1];
-                }
-                betAction[3] = betAction[3]+1;
-                betAction[1] = betAction[1]+1;
-                if(betAction[3] >= 3){
-                    betAction[2] = 4;
-                    betAction[3] = 0;
-                }
-            }else{
-            console.log("T");
-            }
-        }
+class CardsCounting{
+    constructor(betAction){
+        this.betAction = betAction;
+    }
+    cardsScoreCount(betAction){
 
-        if(betAction[0]===0 && betAction[2]===3){
-            if(playerScore < bankerScore){
-                    console.log("B連勝中のため、look継続");
-            }else if(playerScore > bankerScore){
-                    console.log("P勝利のため、べット開始");
-                    betAction[2]=0;
-            }else{
-                    console.log("タイのため、look継続");
-            }
-        }
-        else if(betAction[0]===0 && betAction[2]===4){
-            if(playerScore > bankerScore){
-                    console.log("P連勝中のため、look継続");
-            }else if(playerScore < bankerScore){
-                    console.log("B勝利、連勝ストップのためべット開始");
-                    betAction[2]=0;
-            }else{
-                    console.log("タイのため、look継続");
-            }
-        }
-        else if(betAction[0]===0){
-            if(bankerScore < playerScore){
-                console.log("Win");
-                if(betAction[3] < 3){
-                    betAction[4] = betAction[4] + betAction[1];
-                }
-                if(betAction[1] > 14 && betAction[4] > -50){
-                    betAction[1] = 10;
-                }
-                else if(betAction[1] > 9 && betAction[4] > -20){
-                    betAction[1] = 4;
-                }
-                betAction[3] = 0;
-                if(betAction[4] >= 0){
-                    betAction[1] = 1;
-                    betAction[4] = 0;
-                }
-            }
-            else if(playerScore < bankerScore){
-                    console.log("Lose");
-                if(betAction[3] < 3){
-                    betAction[4] = betAction[4]-betAction[1];
-                }
-                betAction[3] = betAction[3]+1;
-                betAction[1] = betAction[1]+1;
-                if(betAction[3] >= 3){
-                    betAction[2] = 3;
-                    betAction[3] = 0;
-                }
-            }else{
-            console.log("T");
-            }
-        }
 
-        var betActionMove = 0;
-        var cardsResultConnect = cardsResult[0].concat(cardsResult[1]);
 
-        var sum = 0;
+
+        var cardsResultConnect = this.cardsResult[0].concat(this.cardsResult[1]);
+        var cardsSum = 0;
+
         cardsResultConnect.forEach((numberResult) => {
-        if(numberResult === 4){
-            numberResult = -2
-        }else if(numberResult === 1 || numberResult === 2 || numberResult === 3){
-            numberResult = -1
-        }else if(numberResult === 6){
-            numberResult = 2
-        }else if(numberResult === 7 || numberResult === 8 || numberResult === 9){
-            numberResult = 1
-        }else if(isNaN(numberResult)){
-            numberResult = 0
-        }else{
-            numberResult = 0
-        }
-        sum += numberResult;
+            if(numberResult === 4){
+                numberResult = -2
+            }else if(numberResult === 1 || numberResult === 2 || numberResult === 3){
+                numberResult = -1
+            }else if(numberResult === 6){
+                numberResult = 2
+            }else if(numberResult === 7 || numberResult === 8 || numberResult === 9){
+                numberResult = 1
+            }else if(isNaN(numberResult)){
+                numberResult = 0
+            }else{
+                numberResult = 0
+            }
+        cardsSum += numberResult;
         });
-        console.log(sum);
-        betAction[6] = betAction[6] + sum;
+        console.log(cardsSum);
+        betAction[6] = betAction[6] + cardsSum;
         return betAction;
     }
-    changeBetForFanc(){        
+
+
+    betChange(){        
         if(betAction[7] === 1){
-            betAction[0] = 0
-        }
-        else if(betAction[6] > 10){
             betAction[0] = 0
         }else{
             betAction[0] = 1
         }
-
-
         return betAction;
     }
-    resetFunc(){
-        if(betAction[1] > 15 && betAction[4] > -49){
-            betAction = [1, 1, 0, 0, 0, 0, 0];
-        }
-        else if(betAction[1] > 12 && betAction[4] > -10){
-            betAction = [1, 1, 0, 0, 0, 0, 0];
-        }
-        if(betAction[4] < -101){
+
+    betReset(){
+        if(betAction[4] < -199){
             betAction = [1, 1, 0, 0, 0, 0, 0];
         }
         return betAction;
     }
 }
 
-
-class BacarratGameNumber {
-    constructor(betAction){
-        this.betAction = betAction;
-    }
-    gamePlayTimes(betAction){
-            var gameCounter = this.betAction[5];
-            gameCounter = Number($('.count--d4099').eq(0).text());
-            if(gameCounter === 0){
-                this.betAction[0] = 1;
-
-                this.betAction[5] = 0;
-                this.betAction[6] = 0;
-                this.betAction[7] = 0;
-                console.log("カウンティングをリセットします");
-
-                return betAction;
-            }else{
-                this.betAction[5] = gameCounter;
-                    if(gameCounter === 20){
-                        var twentyTimesPlayerGameCounter = Number($('.count--d4099').eq(1).text());
-                        var twentyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
-                        console.log("２０ゲーム目の勝敗を保存しました")
-
-                    }if(gameCounter === 30){
-                        var thirtyTimesPlayerGameCounter = Number($('.count--d4099').eq(1).text());
-                        var thirtyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
-                        console.log("３０ゲーム目の勝敗を保存しました")
-                        var pbScore = thirtyTimesPlayerGameCounter - thirtyTimesBankerGameCounter;
-                        var parameterPorBwin = this.betAction[6]
-                        if(pbScore > 4){
-                            this.betAction[7] = 1;
-                            this.betAction[3] = 0;
-                        }
-                    }
-                    if(gameCounter > 20){
-                        var nowPlayerGameCounter = Number($('.count--d4099').eq(1).text());
-                        var nowBankerGameCounter = Number($('.count--d4099').eq(2).text());
-
-                        var playerWinTimes = nowPlayerGameCounter - twentyTimesPlayerGameCounter;
-                        var bankerWinTimes = nowBankerGameCounter - twentyTimesBankerGameCounter;
-                        console.log($('.count--d4099').eq(1).text());
-                        console.log($('.count--d4099').eq(2).text());
-                        var resetCounter = this.betAction[7];
-                        var parameterPorBwin = this.betAction[6]
-                        if(resetCounter === 1){
-                            this.betAction[7] = 1;
-                            console.log("以降プレイヤーへべットします");
-                        }
-                        else if(nowPlayerGameCounter - nowBankerGameCounter > 0 && parameterPorBwin < -5 && playerWinTimes > bankerWinTimes+5){
-                            this.betAction[7] = 1;
-                            this.betAction[3] = 0;
-                            console.log("以降プレイヤーへべットします");
-                        }
-                    console.log("シュー継続、カウンティング続行");
-                    return betAction;
-                    }
-            }
-        }
-}
-
-class BacarratGameBetChips {
+class BacarratGameBet {
     constructor(betAction, betChipsNumber){
         this.betAction = betAction;
         this.betChipsNumber = betChipsNumber;
     }
-    gameChipBet(){
+    gameBetChips(){
         var betChips = this.betAction[1];
         var numOfTwentyFiveChips = 0;
         var numOfFiveChips = 0;
@@ -313,25 +147,22 @@ class BacarratGameBetChips {
         this.betChipsNumber = [numOfTwentyFiveChips, numOfFiveChips, numOfOneChips];
         return this.betChipsNumber;
     }
-    autoBetTwentyFiveDollarChip(){
+    pushKeyTwentyFiveDollarChip(){
         document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 51 }));
     }
-    autoBetFiveDollarChip(){
+    pushKeyFiveDollarChip(){
         document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 50 }));
     }
-    autoBetOneDollarChip(){
+    pushKeyOneDollarChip(){
         document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 49 }));
-    }
-    autoBetOneAndReset(){
-        document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 8 }));
     }
     betForPlayer(){
         console.log('プレイヤーへべット');
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                this.gameChipBet();
+                this.gameBetChips();
                 console.log(`べット枚数[25$, 5$, 1$]${this.betChipsNumber}`);
-                this.autoBetTwentyFiveDollarChip();
+                this.pushKeyTwentyFiveDollarChip();
                 var twentyFiveDollarChips = this.betChipsNumber[0];
                     (function(chips){
                         var intervalID = setInterval(function(){
@@ -344,12 +175,12 @@ class BacarratGameBetChips {
                         }, 250);
                     })(twentyFiveDollarChips);
                 resolve();
-            }, 800);
+            }, 500);
         }).then(() => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                this.gameChipBet();
-                this.autoBetFiveDollarChip();
+                this.gameBetChips();
+                this.pushKeyFiveDollarChip();
                 var fiveDollarChips = this.betChipsNumber[1];
                     (function(chips){
                         var intervalID = setInterval(function(){
@@ -367,8 +198,8 @@ class BacarratGameBetChips {
         }).then(() => {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                this.gameChipBet();
-                this.autoBetOneDollarChip();
+                this.gameBetChips();
+                this.pushKeyOneDollarChip();
                 var oneDollarChips = this.betChipsNumber[2];
                     (function(chips){
                         var intervalID = setInterval(function(){
@@ -388,9 +219,9 @@ class BacarratGameBetChips {
         console.log('バンカーへべット');
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                this.gameChipBet();
+                this.gameBetChips();
                 console.log(`べット枚数[25$, 5$, 1$]${this.betChipsNumber}`);
-                this.autoBetTwentyFiveDollarChip();
+                this.pushKeyTwentyFiveDollarChip();
                 var twentyFiveDollarChips = this.betChipsNumber[0];
                     (function(chips){
                         var intervalID = setInterval(function(){
@@ -407,8 +238,8 @@ class BacarratGameBetChips {
         }).then(() => {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    this.gameChipBet();
-                    this.autoBetFiveDollarChip();
+                    this.gameBetChips();
+                    this.pushKeyFiveDollarChip();
                     var fiveDollarChips = this.betChipsNumber[1];
                         (function(chips){
                             var intervalID = setInterval(function(){
@@ -421,13 +252,13 @@ class BacarratGameBetChips {
                             }, 250);
                         })(fiveDollarChips);
                         resolve();
-                    }, 1100)
+                    }, 500)
                 })
         }).then(() => {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                this.gameChipBet();
-                this.autoBetOneDollarChip();
+                this.gameBetChips();
+                this.pushKeyOneDollarChip();
                 var oneDollarChips = this.betChipsNumber[2];
                     (function(chips){
                         var intervalID = setInterval(function(){
@@ -448,47 +279,243 @@ class BacarratGameBetChips {
     }
 };
 
+
+class CbMethod{
+    constructor(betAction,playerScore,bankerScore){
+        this.betAction = betAction;
+        this.playerScore = playerScore;
+        this.bankerScore = bankerScore;
+    }
+    cbMethodBetForBanker(betAction,playerScore,bankerScore){
+
+        if(betAction[2]===4){
+            if(playerScore > bankerScore){
+                    console.log("P連勝中のため、look継続");
+            }else if(playerScore < bankerScore){
+                    console.log("B勝利のため、べット開始");
+                    betAction[2]=0;
+            }else{
+                    console.log("タイのため、look継続");
+            }
+
+        }else if(betAction[2]===3){
+            if(playerScore < bankerScore){
+                console.log("B連勝中のため、look継続");
+            }else if(playerScore > bankerScore){
+                console.log("P勝利、連勝ストップのためべット開始");
+                betAction[2]=0;
+            }else{
+                console.log("タイのため、look継続");
+            }
+        }else{
+            if(bankerScore > playerScore){
+                console.log("Win");
+                if(betAction[3] < 3){
+                    betAction[4] = betAction[4] + betAction[1];
+                }
+                if(betAction[1] > 20 && betAction[4] > -99){
+                    betAction[1] = 12;
+                }else if(betAction[1] > 14 && betAction[4] > -49){
+                    betAction[1] = 9;
+                }else if(betAction[1] > 9 && betAction[4] > -20){
+                    betAction[1] = 4;
+                }
+                betAction[3] = 0;
+                if(betAction[4] >= 0){
+                    betAction[1] = 1;
+                    betAction[4] = 0;
+                }
+            }else if(playerScore > bankerScore){
+                console.log("Lose");
+                if(betAction[3] < 3){
+                    betAction[4] = betAction[4]-betAction[1];
+                }
+                betAction[3] = betAction[3]+1;
+                betAction[1] = betAction[1]+1;
+                if(betAction[3] >= 3){
+                    betAction[2] = 4;
+                    betAction[3] = 0;
+                }
+            }else{
+                console.log("T");
+            }
+        }
+        return betAction;
+    }
+    cbMethodBetForPlayer(betAction,playerScore,bankerScore){
+
+        if(betAction[2]===3){
+            if(playerScore < bankerScore){
+                console.log("B連勝中のため、look継続");
+            }else if(playerScore > bankerScore){
+                console.log("P勝利のため、べット開始");
+                betAction[2]=0;
+            }else{
+                console.log("タイのため、look継続");
+            }
+        }else if(betAction[2]===4){
+
+            if(playerScore > bankerScore){
+                console.log("P連勝中のため、look継続");
+            }else if(playerScore < bankerScore){
+                console.log("B勝利、連勝ストップのためべット開始");
+                betAction[2]=0;
+            }else{
+                console.log("タイのため、look継続");
+            }
+        }else{
+            if(bankerScore < playerScore){
+                console.log("Win");
+                if(betAction[3] < 3){
+                    betAction[4] = betAction[4] + betAction[1];
+                }
+                if(betAction[1] > 20 && betAction[4] > -99){
+                    betAction[1] = 12;
+                }
+                else if(betAction[1] > 14 && betAction[4] > -49){
+                    betAction[1] = 9;
+                }
+                else if(betAction[1] > 9 && betAction[4] > -20){
+                    betAction[1] = 4;
+                }
+                betAction[3] = 0;
+                if(betAction[4] >= 0){
+                    betAction[1] = 1;
+                    betAction[4] = 0;
+                }
+            }else if(playerScore < bankerScore){
+                console.log("Lose");
+                if(betAction[3] < 3){
+                    betAction[4] = betAction[4]-betAction[1];
+                }
+                betAction[3] = betAction[3]+1;
+                betAction[1] = betAction[1]+1;
+                if(betAction[3] >= 3){
+                    betAction[2] = 3;
+                    betAction[3] = 0;
+                }
+            }else{
+            console.log("T");
+            }
+        }
+    }
+}
+
+class BacarratGameNumber {
+    constructor(betAction,gameCounter){
+        this.betAction = betAction;
+        this.gameCounter = gameCounter;
+    }
+    gamePlayTimesReset(betAction,gameCounter){
+        console.log(this.gameCounter);
+        this.betAction[0] = 1;
+
+            
+            
+        this.betAction[5] = 0;
+        this.betAction[6] = 0;
+        this.betAction[7] = 0;
+        console.log("カウンティングをリセットします");
+        return betAction;
+    }
+    gamePlayTimesContinue(betAction,gameCounter){
+        console.log(this.gameCounter);
+        this.betAction[5] = this.gameCounter;
+        if(this.gameCounter === 20){
+            var twentyTimesPlayerGameCounter = Number($('.count--d4099').eq(1).text());
+            var twentyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
+            console.log("２０ゲーム目の勝敗を保存しました")
+        }
+
+        if(this.gameCounter === 30){
+            var thirtyTimesPlayerGameCounter = Number($('.count--d4099').eq(1).text());
+            var thirtyTimesBankerGameCounter = Number($('.count--d4099').eq(2).text());
+            console.log("３０ゲーム目の勝敗を保存しました")
+            var pbScore = thirtyTimesPlayerGameCounter - thirtyTimesBankerGameCounter;
+            if(pbScore > 5){
+                this.betAction[7] = 1;
+                this.betAction[3] = 0;
+            }
+        }
+
+        if(this.gameCounter > 20){
+            var nowPlayerGameCounter = Number($('.count--d4099').eq(1).text());
+            var nowBankerGameCounter = Number($('.count--d4099').eq(2).text());
+            var playerWinTimes = nowPlayerGameCounter - twentyTimesPlayerGameCounter;
+            var bankerWinTimes = nowBankerGameCounter - twentyTimesBankerGameCounter;
+            var resetCounter = this.betAction[7];
+            if(resetCounter === 1){
+                this.betAction[7] = 1;
+                console.log("以降プレイヤーへべットします");
+            }else if(playerWinTimes - bankerWinTimes > 5
+                    && twentyTimesPlayerGameCounter > twentyTimesBankerGameCounter){
+                this.betAction[7] = 1;
+                this.betAction[3] = 0;
+                console.log("以降プレイヤーへべットします");
+            }
+        console.log("シュー継続、カウンティング続行");
+        return betAction;
+        }
+    }
+}
+
+
+
     var distributedCards = $('.gameResult--423e1')[0];
     var counter = true;
     var winOrLose = new MutationObserver(function(record, observer){
         if(counter){
             console.log("決着");
                 const outPutCardsInformation = new CardsInformation();
-                outPutCardsInformation.playerCardsRecord();
-                outPutCardsInformation.bankerCardsRecord();
-                outPutCardsInformation.outputForCardsRecord();
-                outPutCardsInformation.winOrLoseCount();
-                outPutCardsInformation.changeBetForFanc();
-                outPutCardsInformation.resetFunc();
+                    outPutCardsInformation.playerCardsRecord();
+                    outPutCardsInformation.bankerCardsRecord();
+                    outPutCardsInformation.outputCardsRecord();
+                    outPutCardsInformation.winOrLoseJudge();
+                const baccaratBetting = new CardsCounting();
+                    baccaratBetting.betChange();
+                    baccaratBetting.betReset();
+                    baccaratBetting.cardsScoreCount();
                 console.log(betAction);
             counter = !counter;
             return betAction;
         }else{
             new Promise((resolve, reject) => {
                 setTimeout(() => {
+
                     document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 50 }))
                     const outPutGameNumber = new BacarratGameNumber(betAction);
-                    outPutGameNumber.gamePlayTimes();
+                    var gameCounter = Number($('.count--d4099').eq(0).text());
+                    if(gameCounter === 0){
+                        outPutGameNumber.gamePlayTimesReset();
+                    }else{
+                        outPutGameNumber.gamePlayTimesContinue();  
+                    }
                     resolve();
                 }, 2000);
             }).then(() => {
                 return new Promise((resolve, reject) => {
                     setTimeout(() => {
                         console.log("べットします");
-                        const baccaratGameStart = new BacarratGameBetChips(betAction,betChipsNumber);
+                        const baccaratCbMethodSystem = new CbMethod(betAction,playerScore,bankerScore);
+                        if(betAction[0]===0){
+                            cbMethodBetForBanker();
+                        }else if(betAction[0]===1){
+                            cbMethodBetForPlayer();
+                        }
+                        const baccaratGameStart = new BacarratGameBet(betAction,betChipsNumber);
+
                         if(betAction[2] > 2){
                             document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 49 }))
                             baccaratGameStart.look();
                             console.log("look");
-                            
-                        }
-                        else if(betAction[0]===0){
+                        }else if(betAction[0]===0){
                             baccaratGameStart.betForPlayer();
                             console.log("betForPlayer");
                         }else if(betAction[0]===1){
                             baccaratGameStart.betForBanker();
                             console.log("betForBanker");
                         }else{
+
                             document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 49 }))
                             baccaratGameStart.look();
                             console.log("look");
