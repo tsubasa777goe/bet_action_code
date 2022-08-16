@@ -54,8 +54,8 @@ class CardsInformation{
         return this.bHandsNum;
     }
     outputCardsRecord(){
-        this.cardsResult = this.cardsResult.push(this.pHandsNum,this.bHandsNum);
-        var cardsResultScore = this.cardsResult
+        var cardsResultScore = this.cardsResult.push(this.pHandsNum,this.bHandsNum);
+        console.log(cardsResultScore);
         console.log(cardsResultScore[0][0],cardsResultScore[0][1],cardsResultScore[0][2]);
         console.log(cardsResultScore[1][0],cardsResultScore[1][1],cardsResultScore[1][2]);
         cardsResultScore[0][2] = parseInt(cardsResultScore[0][2]) || 0;
