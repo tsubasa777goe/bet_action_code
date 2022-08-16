@@ -70,6 +70,7 @@ class CardsInformation{
         return cardsResult;
     }
     winOrLoseJudge(){
+        console.log(cardsResult);
         var playerScore = cardsResult[0][0] + cardsResult[0][1] + cardsResult[0][2];
         var bankerScore = cardsResult[1][0] + cardsResult[1][1] + cardsResult[1][2];
         while(playerScore >= 10){
