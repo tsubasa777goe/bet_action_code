@@ -256,7 +256,7 @@ class BacarratGameNumber {
                         console.log("３０ゲーム目の勝敗を保存しました")
                         var pbScore = thirtyTimesPlayerGameCounter - thirtyTimesBankerGameCounter;
                         var parameterPorBwin = this.betAction[6]
-                        if(pbScore > 4){
+                        if(pbScore > 4 && parameterPorBwin > 0){
                             this.betAction[7] = 1;
                             this.betAction[3] = 0;
                         }
@@ -272,7 +272,6 @@ class BacarratGameNumber {
                         var resetCounter = this.betAction[7];
                         var parameterPorBwin = this.betAction[6]
                         if(resetCounter === 1){
-                            this.betAction[7] = 1;
                             console.log("以降プレイヤーへべットします");
                         }
                         else if(nowPlayerGameCounter - nowBankerGameCounter > 0 && parameterPorBwin < -5 && playerWinTimes > bankerWinTimes+5){
