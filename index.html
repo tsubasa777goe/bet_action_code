@@ -4,6 +4,7 @@ s.onload=function(){f(jQuery.noConflict(true))};document.body.appendChild(s)})
 (function($){
 
 var betAction = [1, 1, 0, 0, 0, 0, 0, 0];
+var betUnit = 1;
 var betChipsNumber = [0, 0, 0];
 
 class CardsInformation{
@@ -292,7 +293,7 @@ class BacarratGameBetChips {
         this.betChipsNumber = betChipsNumber;
     }
     gameChipBet(){
-        var betChips = this.betAction[1];
+        var betChips = this.betAction[1] * betUnit;
         var numOfTwentyFiveChips = 0;
         var numOfFiveChips = 0;
         var numOfOneChips = 0;
