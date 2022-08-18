@@ -3,7 +3,7 @@
 s.onload=function(){f(jQuery.noConflict(true))};document.body.appendChild(s)})
 (function($){
 
-var betAction = [1, 1, 0, 0, 0, 0, 0, 0];
+var betAction = [1, 1, 0, 0, 0, 0, 0, 0, 0];
 var betUnit = 1;
 var betChipsNumber = [0, 0, 0];
 var bankerWincounter = 0;
@@ -229,7 +229,7 @@ class CardsInformation{
         return betAction;
     }
     changeBetForFanc(){        
-        if(betAction[7] === 1){
+        if(betAction[8] === 1){
             betAction[0] = 0
         }
         else if(betAction[6] > 10){
@@ -266,7 +266,7 @@ class BacarratGameNumber {
 
                 this.betAction[5] = 0;
                 this.betAction[6] = 0;
-                this.betAction[7] = 0;
+                this.betAction[8] = 0;
                 console.log("カウンティングをリセットします");
 
                 return betAction;
@@ -285,7 +285,7 @@ class BacarratGameNumber {
                         var pbScore = thirtyTimesPlayerGameCounter - thirtyTimesBankerGameCounter;
                         var parameterPorBwin = this.betAction[6]
                         if(pbScore > 4 && parameterPorBwin > 0){
-                            this.betAction[7] = 1;
+                            this.betAction[8] = 1;
                             this.betAction[3] = 0;
                         }
                     }
@@ -296,13 +296,13 @@ class BacarratGameNumber {
                         var bankerWinTimes = nowBankerGameCounter - twentyTimesBankerGameCounter;
                         console.log($('.count--d4099').eq(1).text());
                         console.log($('.count--d4099').eq(2).text());
-                        var resetCounter = this.betAction[7];
+                        var resetCounter = this.betAction[8];
                         var parameterPorBwin = this.betAction[6]
                         if(resetCounter === 1){
                             console.log("以降プレイヤーへべットします");
                         }
                         else if(nowPlayerGameCounter - nowBankerGameCounter > 0 && parameterPorBwin > 0 && playerWinTimes > bankerWinTimes+5){
-                            this.betAction[7] = 1;
+                            this.betAction[8] = 1;
                             this.betAction[3] = 0;
                             console.log("以降プレイヤーへべットします");
                         }
