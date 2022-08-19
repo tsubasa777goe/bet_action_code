@@ -118,7 +118,10 @@ class CardsInformation{
                 if(betAction[3] < 3){
                     betAction[4] = betAction[4] + betAction[1];
                 }
-                if(betAction[1] > 14 && betAction[4] > -50){
+                if(betAction[1] > 19 && betAction[4] > -100){
+                    betAction[1] = 15;
+                }
+                else if(betAction[1] > 14 && betAction[4] > -50){
                     betAction[1] = 10;
                 }
                 else if(betAction[1] > 9 && betAction[4] > -20){
@@ -174,7 +177,10 @@ class CardsInformation{
                 if(betAction[3] < 3){
                     betAction[4] = betAction[4] + betAction[1];
                 }
-                if(betAction[1] > 14 && betAction[4] > -50){
+                if(betAction[1] > 19 && betAction[4] > -100){
+                    betAction[1] = 15;
+                }
+                else if(betAction[1] > 14 && betAction[4] > -50){
                     betAction[1] = 10;
                 }
                 else if(betAction[1] > 9 && betAction[4] > -20){
@@ -240,12 +246,6 @@ class CardsInformation{
         return betAction;
     }
     resetFunc(){
-        if(betAction[1] > 15 && betAction[4] > -49){
-            betAction = [1, 1, 0, 0, 0, 0, 0, 0, 0];
-        }
-        else if(betAction[1] > 12 && betAction[4] > -10){
-            betAction = [1, 1, 0, 0, 0, 0, 0, 0, 0];
-        }
         if(betAction[4] < -199){
             betAction = [1, 1, 0, 0, 0, 0, 0, 0, 0];
         }
