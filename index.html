@@ -74,9 +74,6 @@ class CardsInformation{
             if(playerScore < bankerScore){
                 bankerWincounter = bankerWincounter + 1;
                 console.log("バンカー4連勝を検出するまで、look継続");
-                if(bankerWincounter === 1){
-                $('.player--5adf8').trigger("click");
-                }
             }else if(playerScore > bankerScore){
                 bankerWincounter = 0;
             }
@@ -238,10 +235,10 @@ class CardsInformation{
         return betAction;
     }
     changeBetForFanc(){        
-        if(betAction[8] === 1){
+        if(betAction[8] === 1 && betAction[7]!==1){
             betAction[0] = 0
         }
-        else if(betAction[6] > 10){
+        else if(betAction[6] > 10 && betAction[7]!==1){
             betAction[0] = 0
         }else{
             betAction[0] = 1
@@ -501,6 +498,9 @@ class BacarratGameBetChips {
                 return new Promise((resolve, reject) => {
                     setTimeout(() => {
                         console.log("べットします");
+                            if(bankerWincounter === 1){
+                                $('.player--5adf8').trigger("click");
+                            }
                         const baccaratGameStart = new BacarratGameBetChips(betAction,betChipsNumber);
                         if(betAction[2] > 2){
                             document.dispatchEvent( new KeyboardEvent( "keydown", { keyCode: 49 }))
