@@ -251,8 +251,11 @@ class CardsInformation{
         betAction[6] = betAction[6] + sum;
         return betAction;
     }
-    changeBetForFanc(){        
-        if(betAction[8] === 1 && betAction[7]!==1){
+    changeBetForFanc(){
+        if(betAction[8]===2){
+            betAction[0] = 1            
+        }        
+        else if(betAction[8] === 1 && betAction[7]!==1){
             betAction[0] = 0
         }
         else if(betAction[6] > 10 && betAction[7]!==1){
@@ -322,6 +325,10 @@ class BacarratGameNumber {
                             this.betAction[8] = 1;
                             this.betAction[3] = 0;
                             console.log("以降プレイヤーへべットします");
+                        }
+                        if(gameCounter > 20 && nowPlayerGameCounter+5 < nowBankerGameCounter){
+                            this.betAction[8] = 2;
+                            this.betAction[3] = 0;
                         }
                     console.log("シュー継続、カウンティング続行");
                     return betAction;
