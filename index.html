@@ -8,6 +8,7 @@ var betUnit = 1;
 var betChipsNumber = [0, 0, 0];
 var bankerWincounter = 0;
 var methodcounter = 100;
+var abort = false;
 
 class CardsInformation{
     constructor(pHandsNum,bHandsNum){
@@ -120,6 +121,7 @@ class CardsInformation{
                 }
                 if(betAction[1] > 19 && betAction[4] > -100){
                     betAction[1] = 15;
+                    abort = true;
                 }
                 else if(betAction[1] > 14 && betAction[4] > -50){
                     betAction[1] = 10;
@@ -133,6 +135,11 @@ class CardsInformation{
                     betAction[4] = 0;
                     bankerWincounter = 0;
                     methodcounter = 100;
+                }else if(betAction[4] > -11 && abort){
+                    betAction[1] = 1;
+                    betAction[4] = 0;
+                    bankerWincounter = 0;
+                    methodcounter = 100;                    
                 }
             }
             else if(playerScore > bankerScore){
@@ -179,6 +186,7 @@ class CardsInformation{
                 }
                 if(betAction[1] > 19 && betAction[4] > -100){
                     betAction[1] = 15;
+                    abort = true;
                 }
                 else if(betAction[1] > 14 && betAction[4] > -50){
                     betAction[1] = 10;
@@ -192,6 +200,11 @@ class CardsInformation{
                     betAction[4] = 0;
                     bankerWincounter = 0;
                     methodcounter = 100;
+                }else if(betAction[4] > -11 && abort){
+                    betAction[1] = 1;
+                    betAction[4] = 0;
+                    bankerWincounter = 0;
+                    methodcounter = 100;                    
                 }
             }
             else if(playerScore < bankerScore){
