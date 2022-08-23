@@ -525,7 +525,9 @@ class BacarratGameBetChips {
                     setTimeout(() => {
                         console.log("べットします");
                             if(bankerWincounter === 1){
-                                $('.player--5adf8').trigger("click");
+                                setTimeout(() => {
+                                    $('.player--5adf8').trigger("click");
+                                },1000)
                             }
                         const baccaratGameStart = new BacarratGameBetChips(betAction,betChipsNumber);
                         if(betAction[2] > 2){
